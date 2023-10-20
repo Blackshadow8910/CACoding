@@ -1,6 +1,13 @@
 package use_case.clear_users;
 
-// TODO Complete me
-
 public class ClearOutputData {
+    private boolean success;
+
+    public ClearOutputData(boolean result) {
+        success = result;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
 }

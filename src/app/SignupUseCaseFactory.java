@@ -1,9 +1,13 @@
 package app;
 
+import interface_adapter.clear_users.ClearController;
+import interface_adapter.clear_users.ClearPresenter;
+import interface_adapter.clear_users.ClearViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import use_case.clear_users.*;
 import use_case.signup.SignupUserDataAccessInterface;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -45,5 +49,14 @@ public class SignupUseCaseFactory {
                 userDataAccessObject, signupOutputBoundary, userFactory);
 
         return new SignupController(userSignupInteractor);
+    }
+
+    public static ClearController createClearUserUseCase(ViewManagerModel viewManagerModel, ClearViewModel clearViewModel, ClearUserDataAccessInterface userDataAccessObject) {
+        ClearOutputBoundary clearOutputBoundary = new ClearPresenter(viewManagerModel, clearViewModel);
+
+        ClearInputBoundary userClearInteractor = new ClearInteractor(
+          userDataAccessObject, clearOutputBoundary
+        );
+        return new ClearController(userClearInteractor);
     }
 }
