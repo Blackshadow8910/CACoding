@@ -50,13 +50,4 @@ public class SignupUseCaseFactory {
 
         return new SignupController(userSignupInteractor);
     }
-
-    public static ClearController createClearUserUseCase(ViewManagerModel viewManagerModel, ClearViewModel clearViewModel, ClearUserDataAccessInterface userDataAccessObject) {
-        ClearOutputBoundary clearOutputBoundary = new ClearPresenter(viewManagerModel, clearViewModel);
-
-        ClearInputBoundary userClearInteractor = new ClearInteractor(
-          userDataAccessObject, clearOutputBoundary
-        );
-        return new ClearController(userClearInteractor);
-    }
 }

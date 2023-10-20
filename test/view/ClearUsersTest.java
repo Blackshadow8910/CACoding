@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import static org.junit.Assert.*;
+
 public class ClearUsersTest {
     static String message = "";
     static boolean popUpDiscovered = false;

@@ -26,26 +26,25 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final SignupController signupController;
 
-    private final ClearController clearController;
-    private final ClearViewModel clearViewModel;
+    private ClearController clearController;
+    // private final ClearViewModel clearViewModel;
 
     private final JButton signUp;
     private final JButton cancel;
     private final JButton clear;
 
-    public SignupView(SignupController controller, SignupViewModel signupViewModel) {
-        ClearController clearController = SignupUseCaseFactory.createClearUserUseCase();
-        this(controller, signupViewModel, new ClearController(new ClearInteractor()), new ClearViewModel());
-    }
+    // public SignupView(SignupController controller, SignupViewModel signupViewModel) {
+    //     ClearController clearController = SignupUseCaseFactory.createClearUserUseCase();
+    //     this(controller, signupViewModel, new ClearController(new ClearInteractor()), new ClearViewModel());
+    // }
 
-    public SignupView(SignupController signupController, SignupViewModel signupViewModel,
-                      ClearController clearController, ClearViewModel clearViewModel) {
+    public SignupView(SignupController signupController, SignupViewModel signupViewModel) {
 //    public SignupView(SignupController signupController, SignupViewModel signupViewModel) {
 
         this.signupController = signupController;
         this.signupViewModel = signupViewModel;
-        this.clearController = clearController;
-        this.clearViewModel = clearViewModel;
+        // this.clearController = clearController;
+        // this.clearViewModel = clearViewModel;
         signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
@@ -89,9 +88,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         //clearController.execute();
-
-                        JOptionPane.showMessageDialog(self, "%s cleared registered accounts."
-                                .formatted("Successfully"));
+                        if (clearController == null) {
+                            JOptionPane.showMessageDialog(self, "No clearcontroller set.");
+                        } else {
+                            clearController.execute();
+                        }
                     }
                 }
         );
@@ -177,6 +178,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
      */
     public void actionPerformed(ActionEvent evt) {
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+    }
+
+    public void setClearController(ClearController clearController) {
+        this.clearController = clearController;
     }
 
     @Override

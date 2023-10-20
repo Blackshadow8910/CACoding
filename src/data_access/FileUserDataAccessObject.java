@@ -8,6 +8,8 @@ import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -101,5 +103,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     @Override
     public void clear() {
         accounts.clear();
+        this.save();
+    }
+
+    @Override 
+    public Collection<User> listUsers() {
+        return new ArrayList<User>(accounts.values());
     }
 }
